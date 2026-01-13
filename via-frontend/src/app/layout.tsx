@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { GNB } from "@/widgets/gnb";
+import { MemberProvider } from "@/entities/member";
 
 export const metadata: Metadata = {
   title: "VIA",
@@ -15,8 +16,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <GNB />
-        <main className="pt-[56px]">{children}</main>
+        <MemberProvider>
+          <GNB />
+          <main className="pt-[56px]">{children}</main>
+        </MemberProvider>
       </body>
     </html>
   );
