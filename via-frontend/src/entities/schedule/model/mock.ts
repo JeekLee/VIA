@@ -1,0 +1,53 @@
+import { ScheduleEvent} from "@/entities/schedule/model/types";
+
+export const mockScheduleEvents: ScheduleEvent[] = [
+    {
+        id: 1,
+        roadmapId: 101,
+        roadmap: 'Frontend 심화 로드맵',
+        title: 'React Advanced Patterns',
+        content: 'HOC, Render Props, Compound Components 패턴 학습',
+        startAt: new Date('2026-01-05T14:00:00'),
+        endAt: new Date('2026-01-05T16:00:00'),
+        assignment: '패턴별 예제 코드 작성 및 정리',
+        aiFeedback: '고급 패턴에 대한 이해도가 높습니다. 다음 단계로는 Custom Hook 기반의 추상화를 시도해보세요.',
+    },
+    {
+        id: 2,
+        roadmapId: 101,
+        roadmap: 'Frontend 심화 로드맵',
+        title: 'TypeScript Advanced Types',
+        content: 'Generics, Conditional Types, Mapped Types 학습',
+        startAt: new Date('2026-01-12T10:00:00'),
+        endAt: new Date('2026-01-12T12:00:00'),
+        assignment: '유틸리티 타입 직접 구현',
+    },
+    {
+        id: 3,
+        roadmapId: 202,
+        roadmap: 'Backend 실무 로드맵',
+        title: 'Spring Boot JWT 인증',
+        content: 'Access / Refresh Token 기반 인증 시스템 구현',
+        startAt: new Date('2026-01-15T15:30:00'),
+        endAt: new Date('2026-01-15T18:00:00'),
+        assignment: 'JWT 인증 서버 예제 구현',
+        aiFeedback: '전반적인 구조는 잘 설계되었습니다. Refresh Token 저장 전략과 만료 처리 로직을 보완하면 좋겠습니다.',
+    },
+    {
+        id: 4,
+        roadmapId: 202,
+        roadmap: 'Backend 실무 로드맵',
+        title: 'Docker & Kubernetes 기초',
+        content: 'Docker 이미지 빌드 및 Kubernetes 배포 흐름 이해',
+        startAt: new Date('2026-01-18T09:00:00'),
+        endAt: new Date('2026-01-18T12:00:00'),
+    },
+    {
+        id: 5,
+        title: '개인 프로젝트 정리',
+        content: '포트폴리오용 프로젝트 리팩토링 및 문서화',
+        startAt: new Date('2026-01-20T20:00:00'),
+        endAt: new Date('2026-01-20T22:00:00'),
+        assignment: 'README 및 아키텍처 다이어그램 작성',
+    },
+]
