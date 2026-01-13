@@ -9,6 +9,9 @@ import lombok.Getter;
 public enum SecurityException implements ExceptionInterface {
     PERMISSION_REQUIRED("SEC-001", "Access permission denied.", ForbiddenException.class),
 
+    AUTH_NOT_FOUND("SEC-101", "Authentication context not found.", UnauthorizedException.class),
+    INVALID_PRINCIPAL("SEC-102", "Invalid user principal.", UnauthorizedException.class),
+
     ACCESS_TOKEN_NOT_FOUND("SEC-901", "Login required. Please log in to continue.", UnauthorizedException.class),
     ACCESS_TOKEN_INVALID("SEC-902", "Login session has expired. Please log in again.", UnauthorizedException.class),
     ACCESS_TOKEN_EXPIRED("SEC-903", "Login session has expired. Please log in again.", UnauthorizedException.class),

@@ -1,5 +1,6 @@
 package com.via.support.security.config;
 
+import com.via.support.security.annotation.CurrentUserIdArgumentResolver;
 import com.via.support.security.handler.AuthenticationFailureHandler;
 import com.via.support.security.handler.AuthorizationFailureEntryPoint;
 import com.via.support.security.jwt.JwtResolver;
@@ -25,18 +26,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig {
+public class WebSecurityConfig implements WebMvcConfigurer {
     private final CorsProperties corsProperties;
     private final JwtProperties jwtProperties;
     private final JwtResolver jwtResolver;
     private final ObjectMapper objectMapper;
+    private final CurrentUserIdArgumentResolver currentUserIdArgumentResolver;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -86,5 +91,10 @@ public class WebSecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(currentUserIdArgumentResolver);
     }
 }
