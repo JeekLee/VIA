@@ -38,6 +38,7 @@ out/
 
 ### Project Environments ###
 /setting/search/src/main/resources/data
+/setting/storage/src/main/resources/data
 **/generated
 /setting/external/src/main/resources/external.yml
 /setting/storage/src/main/resources/storage.yml

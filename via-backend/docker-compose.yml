@@ -75,5 +75,18 @@ services:
     networks:
       - opensearch-net
 
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: via-minio
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # Admin Console
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: Xpsd1@idKs!3
+    volumes:
+      - ./setting/storage/src/main/resources/data:/data
+    command: server /data --console-address ":9001"
+
 networks:
   opensearch-net:
