@@ -1,0 +1,22 @@
+### Batch Job Sync API
+
+### 1. Corporation Sync Job 실행
+### curl -X POST http://localhost:8081/api/common/sync/corporation
+POST http://localhost:8081/api/common/sync/corporation
+Content-Type: application/json
+
+###
+
+### 2. Major Sync Job 실행
+### curl -X POST http://localhost:8081/api/common/sync/major
+POST http://localhost:8081/api/common/sync/major
+Content-Type: application/json
+
+###
+
+### 3. University Sync Job 실행
+### curl -X POST http://localhost:8081/api/common/sync/university
+POST http://localhost:8081/api/common/sync/university
+Content-Type: application/json
+
+###

@@ -1,0 +1,37 @@
+rootProject.name = 'via-backend'
+
+include(
+        'core',
+
+        'setting:redis',
+        'setting:database',
+        'setting:storage',
+        'setting:external',
+        'setting:search',
+        'setting:crawler',
+
+        'support:security',
+        'support:swagger',
+        'support:cache',
+        'support:concurrency',
+
+        'account:account-api',
+        'account:account-app',
+        'account:account-domain',
+        'account:account-infra',
+
+        'common:common-api',
+        'common:common-app',
+        'common:common-domain',
+        'common:common-infra',
+        'common:common-crawler',
+
+        'content:content-api',
+        'content:content-app',
+        'content:content-domain',
+        'content:content-infra',
+        'content:content-crawler',
+
+        'runnable:api-server',
+        'runnable:batch-server',
+)

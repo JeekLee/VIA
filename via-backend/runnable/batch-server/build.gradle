@@ -1,0 +1,22 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
+dependencies {
+    implementation(project(":core"))
+
+    implementation(project(":common:common-app"))
+    runtimeOnly(project(":common:common-infra"))
+    implementation(project(":common:common-crawler"))
+
+    implementation(project(":content:content-app"))
+    runtimeOnly(project(":content:content-infra"))
+    implementation(project(":content:content-crawler"))
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    implementation 'org.springframework.data:spring-data-commons'
+}
+
+bootJar { enabled = true }
+jar { enabled = false }

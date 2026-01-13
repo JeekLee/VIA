@@ -1,0 +1,43 @@
+{
+  "analysis": {
+    "char_filter": {
+      "remove_whitespace": {
+        "type": "pattern_replace",
+        "pattern": "\\s+",
+        "replacement": ""
+      }
+    },
+    "tokenizer": {
+      "nori_user_dict": {
+        "type": "nori_tokenizer",
+        "decompound_mode": "mixed"
+      },
+      "ngram_tokenizer": {
+        "type": "ngram",
+        "min_gram": 2,
+        "max_gram": 3,
+        "token_chars": ["letter", "digit"]
+      }
+    },
+    "analyzer": {
+      "nori_analyzer": {
+        "type": "custom",
+        "char_filter": ["remove_whitespace"],
+        "tokenizer": "nori_user_dict",
+        "filter": ["lowercase"]
+      },
+      "ngram_analyzer": {
+        "type": "custom",
+        "char_filter": ["remove_whitespace"],
+        "tokenizer": "ngram_tokenizer",
+        "filter": ["lowercase"]
+      },
+      "search_analyzer": {
+        "type": "custom",
+        "char_filter": ["remove_whitespace"],
+        "tokenizer": "nori_user_dict",
+        "filter": ["lowercase"]
+      }
+    }
+  }
+}

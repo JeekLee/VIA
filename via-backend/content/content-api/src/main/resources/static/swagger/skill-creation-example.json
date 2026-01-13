@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Java",
+    "alias": ["Java", "자바", "JAVA", "자바 프로그래밍", "Java Programming"]
+  },
+  {
+    "name": "Spring Boot",
+    "alias": ["Spring Boot", "스프링부트", "스프링 부트", "SpringBoot", "스프링부트 프레임워크"]
+  },
+  {
+    "name": "React",
+    "alias": ["React", "리액트", "React.js", "ReactJS", "리액트 라이브러리"]
+  },
+  {
+    "name": "Python",
+    "alias": ["Python", "파이썬", "PYTHON", "파이썬 프로그래밍", "Python Programming"]
+  },
+  {
+    "name": "Docker",
+    "alias": ["Docker", "도커", "Docker Container", "도커 컨테이너", "도커 엔진"]
+  },
+  {
+    "name": "서비스 기획",
+    "alias": ["서비스 기획", "서비스기획", "Service Planning", "서비스 플래닝", "프로덕트 기획"]
+  },
+  {
+    "name": "데이터 분석",
+    "alias": ["데이터 분석", "데이터분석", "Data Analysis", "데이터 애널리시스", "데이터 애널리틱스"]
+  },
+  {
+    "name": "사용자 리서치",
+    "alias": ["사용자 리서치", "사용자리서치", "User Research", "유저 리서치", "UX 리서치"]
+  },
+  {
+    "name": "비즈니스 모델링",
+    "alias": ["비즈니스 모델링", "비즈니스모델링", "Business Modeling", "BM 설계", "비즈니스 모델 설계"]
+  },
+  {
+    "name": "요구사항 정의",
+    "alias": ["요구사항 정의", "요구사항정의", "Requirement Definition", "요구사항 분석", "요구 사항 정의서"]
+  },
+  {
+    "name": "Figma",
+    "alias": ["Figma", "피그마", "FIGMA", "피그마 디자인", "Figma Design"]
+  },
+  {
+    "name": "UI/UX 디자인",
+    "alias": ["UI/UX 디자인", "UI UX 디자인", "UIUX 디자인", "UI/UX Design", "유아이유엑스 디자인"]
+  },
+  {
+    "name": "Adobe Photoshop",
+    "alias": ["Adobe Photoshop", "포토샵", "Photoshop", "어도비 포토샵", "PS"]
+  },
+  {
+    "name": "브랜딩",
+    "alias": ["브랜딩", "Branding", "브랜드 디자인", "Brand Design", "브랜드 아이덴티티"]
+  },
+  {
+    "name": "프로토타이핑",
+    "alias": ["프로토타이핑", "Prototyping", "프로토타입 제작", "Prototype", "프로토타입 디자인"]
+  },
+  {
+    "name": "디지털 마케팅",
+    "alias": ["디지털 마케팅", "디지털마케팅", "Digital Marketing", "온라인 마케팅", "디지털 광고"]
+  },
+  {
+    "name": "SEO",
+    "alias": ["SEO", "검색엔진최적화", "Search Engine Optimization", "에스이오", "검색 엔진 최적화"]
+  },
+  {
+    "name": "콘텐츠 마케팅",
+    "alias": ["콘텐츠 마케팅", "콘텐츠마케팅", "Content Marketing", "컨텐츠 마케팅", "콘텐츠 기획"]
+  },
+  {
+    "name": "SNS 마케팅",
+    "alias": ["SNS 마케팅", "SNS마케팅", "Social Media Marketing", "소셜 미디어 마케팅", "소셜마케팅"]
+  },
+  {
+    "name": "퍼포먼스 마케팅",
+    "alias": ["퍼포먼스 마케팅", "퍼포먼스마케팅", "Performance Marketing", "성과형 마케팅", "퍼포먼스 광고"]
+  }
+]

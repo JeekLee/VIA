@@ -1,0 +1,7 @@
+dependencies {
+    implementation(project(":core"))
+    api(project(":account:account-domain"))
+
+    implementation 'org.springframework:spring-tx'
+    implementation 'org.springframework:spring-context'
+}

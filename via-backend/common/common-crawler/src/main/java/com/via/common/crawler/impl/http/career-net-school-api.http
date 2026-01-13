@@ -1,0 +1,10 @@
+### Career Net School API - Search by School Name
+
+GET https://www.career.go.kr/cnet/openapi/getOpenApi.json
+    ?apiKey=
+    &svcType=api
+    &svcCode=SCHOOL
+    &contentType=json
+    &gubun=univ_list
+    &searchSchulNm=
+Content-Type: application/json

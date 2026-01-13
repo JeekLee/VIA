@@ -1,0 +1,6 @@
+dependencies {
+    api(project(":setting:external"))
+
+    implementation(project(":core"))
+    implementation(project(":common:common-domain"))
+}

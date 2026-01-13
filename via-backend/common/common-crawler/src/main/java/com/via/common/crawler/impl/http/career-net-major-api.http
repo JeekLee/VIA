@@ -1,0 +1,10 @@
+### Career Net Major API
+
+GET https://www.career.go.kr/cnet/openapi/getOpenApi.json
+    ?apiKey=
+    &svcType=api
+    &svcCode=MAJOR
+    &contentType=json
+    &gubun=univ_list
+    &searchTitle=
+Content-Type: application/json

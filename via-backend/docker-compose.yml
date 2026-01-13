@@ -1,0 +1,79 @@
+version: "3.9"
+
+services:
+  mysql_builder:
+    image: mysql:8.0.35
+    container_name: via-mysql
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+    ports:
+      - 13306:3306
+    environment:
+      TZ: Asia/Seoul
+      MYSQL_DATABASE: 'account'
+      MYSQL_ROOT_PASSWORD: Xpsd1@idKs!3
+    volumes:
+      - ./setting/database/src/main/resources/initdb.d:/docker-entrypoint-initdb.d
+
+  redis_builder:
+    image: redis:6.2.6-alpine
+    container_name: via-redis
+    ports:
+      - 16379:6379
+    command:
+      - redis-server
+    restart: always
+
+  opensearch:
+    image: opensearchproject/opensearch:3.0.0
+    container_name: via-opensearch
+    environment:
+      - cluster.name=via-opensearch-cluster
+      - node.name=via-opensearch-node1
+      - discovery.type=single-node                 # ✅ 단일 노드 모드
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - plugins.security.disabled=true             # ✅ 보안/SSL 완전 비활성화
+      - http.port=9200
+      - transport.port=9300
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=Xpsd1@idKs!3
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - ./setting/search/src/main/resources/data:/usr/share/opensearch/data
+    ports:
+      - 9200:9200       # REST API (http://localhost:9200)
+      - 9600:9600       # Performance Analyzer
+    networks:
+      - opensearch-net
+    command: >
+      bash -c "
+      if [ ! -d plugins/analysis-nori ]; then
+        echo 'Installing Nori analyzer plugin...';
+        ./bin/opensearch-plugin install --batch analysis-nori;
+      fi;
+      ./opensearch-docker-entrypoint.sh"
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:3.0.0
+    container_name: via-opensearch-dashboards
+    depends_on:
+      - opensearch
+    ports:
+      - 5601:5601
+    environment:
+      OPENSEARCH_HOSTS: '["http://opensearch:9200"]'   # ✅ HTTP 모드로 연결
+      DISABLE_SECURITY_DASHBOARDS_PLUGIN: "true"       # ✅ 보안 플러그인 비활성화
+    networks:
+      - opensearch-net
+
+networks:
+  opensearch-net:

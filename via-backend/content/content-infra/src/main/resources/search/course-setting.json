@@ -1,0 +1,7 @@
+{
+  "number_of_shards": 1,
+  "number_of_replicas": 0,
+  "index.knn": true,
+  "index.knn.algo_param.ef_search": 100,
+  "max_result_window": 10000
+}

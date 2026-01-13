@@ -1,0 +1,47 @@
+{
+  "index": {
+    "knn": true,
+    "knn.algo_param.ef_search": 100,
+    "number_of_shards": 1,
+    "number_of_replicas": 1,
+    "analysis": {
+      "analyzer": {
+        "nori_analyzer": {
+          "type": "custom",
+          "tokenizer": "nori_tokenizer",
+          "filter": [
+            "nori_posfilter",
+            "nori_readingform",
+            "lowercase"
+          ]
+        },
+        "ngram_analyzer": {
+          "type": "custom",
+          "tokenizer": "ngram_tokenizer",
+          "filter": ["lowercase"]
+        }
+      },
+      "tokenizer": {
+        "nori_tokenizer": {
+          "type": "nori_tokenizer",
+          "decompound_mode": "mixed",
+          "discard_punctuation": "true"
+        },
+        "ngram_tokenizer": {
+          "type": "ngram",
+          "min_gram": 2,
+          "max_gram": 3,
+          "token_chars": ["letter", "digit"]
+        }
+      },
+      "filter": {
+        "nori_posfilter": {
+          "type": "nori_part_of_speech",
+          "stoptags": [
+            "SP", "SSC", "SSO", "SC", "SE", "XPN", "XSA", "XSN", "XSV", "UNA", "NA", "VCP"
+          ]
+        }
+      }
+    }
+  }
+}

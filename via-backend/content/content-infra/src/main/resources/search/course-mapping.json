@@ -1,0 +1,32 @@
+{
+  "properties": {
+    "id": {
+      "type": "keyword"
+    },
+    "text": {
+      "type": "keyword",
+      "index": false
+    },
+    "textEmbedding": {
+      "type": "knn_vector",
+      "dimension": 1536,
+      "method": {
+        "name": "hnsw",
+        "space_type": "cosinesimil",
+        "engine": "lucene",
+        "parameters": {
+          "ef_construction": 128,
+          "m": 24
+        }
+      }
+    },
+    "createdAt": {
+      "type": "date",
+      "format": "strict_date_hour_minute_second_millis"
+    },
+    "updatedAt": {
+      "type": "date",
+      "format": "strict_date_hour_minute_second_millis"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+dependencies {
+    api "org.opensearch.client:spring-data-opensearch-starter:2.0.2"
+    api 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
+}

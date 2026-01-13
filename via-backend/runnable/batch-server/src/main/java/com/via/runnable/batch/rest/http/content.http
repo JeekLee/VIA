@@ -1,0 +1,6 @@
+### Batch Job Sync API
+
+### 1. Course Entity Update Job 실행
+### curl -X POST http://localhost:8081/api/content/update/course
+POST http://localhost:8081/api/content/update/course
+Content-Type: application/json

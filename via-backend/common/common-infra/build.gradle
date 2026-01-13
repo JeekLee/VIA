@@ -1,0 +1,32 @@
+dependencies {
+    api(project(":setting:database"))
+    api(project(":setting:storage"))
+    api(project(":setting:search"))
+
+    implementation(project(":core"))
+
+    compileOnly(project(":common:common-app"))
+    compileOnly(project(":common:common-domain"))
+
+    implementation  "io.github.openfeign.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
+    annotationProcessor  "io.github.openfeign.querydsl:querydsl-apt:${queryDslVersion}:jakarta"
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+
+    testImplementation(project(":common:common-app"))
+    testImplementation(project(":common:common-domain"))
+}
+
+def querydslDir = "generated/querydsl"
+
+sourceSets {
+    main.java.srcDirs += [querydslDir]
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.generatedSourceOutputDirectory = file(querydslDir)
+}
+
+clean {
+    delete file(querydslDir)
+}
