@@ -1,0 +1,380 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* JetBrains Design System + Shadcn Theme Variables */
+:root {
+  /* Primary Colors */
+  --color-primary-green: 33 215 137;
+  --color-primary-green-hex: #21D789;
+  --color-primary-light-green: 72 224 84;
+  --color-primary-light-green-hex: #48E054;
+
+  /* Secondary Colors */
+  --color-secondary-purple: 81 14 178;
+  --color-secondary-purple-hex: #510EB2;
+  --color-secondary-light-purple: 107 87 255;
+  --color-secondary-light-purple-hex: #6B57FF;
+  --color-secondary-dark-purple: 46 16 106;
+  --color-secondary-dark-purple-hex: #2E106A;
+  --color-secondary-magenta: 176 29 246;
+  --color-secondary-magenta-hex: #B01DF6;
+  --color-secondary-pink: 255 49 140;
+  --color-secondary-pink-hex: #FF318C;
+
+  /* Background Colors */
+  --color-bg-primary: 0 0 0;
+  --color-bg-primary-hex: #000000;
+  --color-bg-secondary: 25 25 28;
+  --color-bg-secondary-hex: #19191C;
+  --color-bg-tertiary: 45 45 45;
+  --color-bg-tertiary-hex: #2D2D2D;
+  --color-bg-elevated: 52 52 52;
+  --color-bg-elevated-hex: #343434;
+
+  /* Text Colors */
+  --color-text-primary: 255 255 255;
+  --color-text-primary-hex: #FFFFFF;
+  --color-text-secondary: 255 255 255 / 0.6;
+  --color-text-secondary-hex: #FFFFFF99;
+  --color-text-tertiary: 255 255 255 / 0.5;
+  --color-text-tertiary-hex: #FFFFFF80;
+
+  /* Accent Colors */
+  --color-accent-blue: 24 163 250;
+  --color-accent-blue-hex: #18A3FA;
+
+  /* Neutral Colors */
+  --color-neutral-gray-100: 244 244 244;
+  --color-neutral-gray-100-hex: #F4F4F4;
+  --color-neutral-gray-200: 196 196 196;
+  --color-neutral-gray-200-hex: #C4C4C4;
+  --color-neutral-gray-700: 50 50 54;
+  --color-neutral-gray-700-hex: #323236;
+
+  /* Typography */
+  --font-family-primary: "JetBrains Sans", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-family-monospace: "JetBrains Mono", monospace;
+
+  /* Font Sizes */
+  --font-size-xs: 13px;
+  --font-size-sm: 16px;
+  --font-size-md: 20px;
+  --font-size-lg: 29px;
+  --font-size-xl: 35px;
+  --font-size-2xl: 43px;
+  --font-size-3xl: 72px;
+  --font-size-4xl: 79px;
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* Line Heights */
+  --line-height-tight: 16px;
+  --line-height-normal: 24px;
+  --line-height-relaxed: 28px;
+  --line-height-loose: 42px;
+
+  /* Spacing */
+  --spacing-xs: 6px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+
+  /* Border Radius */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-full: 26px;
+  --radius: 0.625rem;
+
+  /* Shadows */
+  --shadow-inner: rgba(255, 255, 255, 0.3) 0px 0px 0px 1px inset;
+
+  /* Gradients */
+  --gradient-purple: linear-gradient(135deg, #2E106A 0%, #510EB2 100%);
+  --gradient-purple-blue: linear-gradient(135deg, #510EB2 0%, #6B57FF 100%);
+
+  /* Product Gradients */
+  --gradient-intellij: linear-gradient(135deg, #FF6B57 0%, #B01DF6 50%, #6B57FF 100%);
+  --gradient-pycharm: linear-gradient(135deg, #21D789 0%, #FFE066 100%);
+  --gradient-datagrip: linear-gradient(135deg, #21D789 0%, #B01DF6 100%);
+  --gradient-webstorm: linear-gradient(135deg, #18A3FA 0%, #FFE066 100%);
+  --gradient-rider: linear-gradient(135deg, #FF318C 0%, #B01DF6 100%);
+  --gradient-clion: linear-gradient(135deg, #21D789 0%, #FF318C 100%);
+
+  /* Transitions */
+  --transition-fast: 0.1s ease;
+  --transition-medium: 0.2s ease-in-out;
+  --transition-slow: 0.3s ease;
+
+  /* Layout */
+  --container-max-width: 1440px;
+  --container-padding: 0 32px;
+  --grid-gap: 24px;
+
+  /* Breakpoints */
+  --breakpoint-mobile: 320px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1440px;
+
+  /* Shadcn Theme Variables - Dark Theme by Default */
+  --background: #191a23;
+  --foreground: #eeeffc;
+  --card: #191a23;
+  --card-foreground: #eeeffc;
+  --popover: #191a23;
+  --popover-foreground: #eeeffc;
+  --primary: #575bc7;
+  --primary-foreground: #ffffff;
+  --secondary: #292a35;
+  --secondary-foreground: #eeeffc;
+  --muted: #292a35;
+  --muted-foreground: #858699;
+  --accent: #292a35;
+  --accent-foreground: #eeeffc;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: #393a4b;
+  --input: #393a4b;
+  --input-background: #151621;
+  --switch-background: #393a4b;
+  --ring: #575bc7;
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: #191a23;
+  --sidebar-foreground: #eeeffc;
+  --sidebar-primary: #575bc7;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #292a35;
+  --sidebar-accent-foreground: #eeeffc;
+  --sidebar-border: #393a4b;
+  --sidebar-ring: #575bc7;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-normal);
+    margin: 0;
+    padding: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  a:hover {
+    opacity: 0.8;
+  }
+
+  code, pre {
+    font-family: var(--font-family-monospace);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    background-color: rgb(var(--color-primary-green));
+    color: rgb(var(--color-bg-primary));
+    padding: 6px 16px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-primary:hover {
+    background-color: rgb(var(--color-primary-light-green));
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: rgb(var(--color-text-primary));
+    padding: 6px 16px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .card-product {
+    background-color: rgba(90, 31, 208, 0.3);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xl);
+    backdrop-filter: blur(10px);
+  }
+
+  .card-elevated {
+    background-color: rgb(var(--color-bg-tertiary));
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xl);
+  }
+
+  .nav-header {
+    background-color: rgb(var(--color-bg-secondary));
+    padding: var(--spacing-md) 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  .container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: var(--container-padding);
+  }
+
+  .grid-layout {
+    display: grid;
+    gap: var(--grid-gap);
+  }
+
+  .bg-gradient-purple {
+    background: var(--gradient-purple);
+  }
+
+  .bg-gradient-purple-blue {
+    background: var(--gradient-purple-blue);
+  }
+
+  .shadow-inner-custom {
+    box-shadow: var(--shadow-inner);
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 60s linear infinite;
+  }
+}
+
+@layer utilities {
+  .text-primary-custom {
+    color: rgb(var(--color-text-primary));
+  }
+
+  .text-secondary-custom {
+    color: rgb(var(--color-text-secondary));
+  }
+
+  .text-tertiary {
+    color: rgb(var(--color-text-tertiary));
+  }
+
+  .bg-primary-custom {
+    background-color: rgb(var(--color-bg-primary));
+  }
+
+  .bg-secondary-custom {
+    background-color: rgb(var(--color-bg-secondary));
+  }
+
+  .bg-tertiary {
+    background-color: rgb(var(--color-bg-tertiary));
+  }
+
+  .bg-elevated {
+    background-color: rgb(var(--color-bg-elevated));
+  }
+
+  .font-mono {
+    font-family: var(--font-family-monospace);
+  }
+}

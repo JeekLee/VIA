@@ -1,0 +1,367 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "VIA API",
+    "description": "VIA API document by [@JeekLee](https://github.com/JeekLee)"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "VIA API local server"
+    },
+    {
+      "url": "https://dev-api.via.com",
+      "description": "VIA API development server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Terms",
+      "description": "사용자 약관 API"
+    },
+    {
+      "name": "Authentication",
+      "description": "사용자 인증 API"
+    }
+  ],
+  "paths": {
+    "/auth/token/refresh": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Refresh access token",
+        "description": "## ✨ 주요 기능\n\n만료된 액세스 토큰을 갱신합니다.\n\n유효한 refresh token을 사용하여 새로운 access token을 발급받습니다.\n\n로그인 과정에서, 사용자 유효성에 대한 판단을 진행합니다.\n\n- 정상 사용자: 커넥터즈 서비스의 `AccessToken`과 `RefreshToken`이 저장되며 `status`는 `ALLOWED`입니다.\n- 비정상 사용자: 이용 약관 동의 등 서비스 사용에 필수적인 내용이 처리되지 않은 경우, `TemporaryToken`과 `RefreshToken`을 발급합니다.\n\n⚠️ `status`가 아래와 같을 경우, 각 상태에 맞는 페이지로 이동시켜야합니다.\n\n- BLOCKED_NEW_MEMBER: 회원가입 페이지로 이동\n- BLOCKED_TERMS_REQUIRED: 약관 동의 페이지로 이동\n- BLOCKED_PROFILE_REQUIRED: 사용자 프로필 작성 페이지로 이동 (미구현)\n- BLOCKED_RESIGN_REQUESTED: 탈퇴 요청 철회 페이지로 이동 (미구현)\n\n임시 토큰은 임시 사용자 권한을 허용하는 API 호출 시 활용 가능하며, \n임시 토큰을 통한 처리가 완료되면 다시 한번 본 API를 호출해 AccessToken을 발급받아야 합니다.\n\n새로 발급된 토큰은 응답 쿠키에 자동으로 설정됩니다.\n",
+        "operationId": "refreshAuthenticationToken",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/oauth2/url": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Generate OAuth2 authorization URL",
+        "description": "## ✨ 주요 기능\n\nOAuth2 인증 프로세스를 시작하기 위한 인증 URL을 생성합니다.\n\nPKCE 방식을 사용하며, 클라이언트에서 생성한 `code verifier`를 이용해 \n`code challenge`를 생성하여 인증 URL에 포함시킵니다.\n\n생성된 URL로 사용자를 리디렉션하면 OAuth2 제공자의 인증 페이지로 이동합니다.\n",
+        "operationId": "getOAuth2LogInUrl",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OAuth2UrlRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuth2LoginUrl"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/oauth2/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Complete OAuth2 login process",
+        "description": "## ✨ 주요 기능\n\nOAuth2 인증 프로세스를 완료하고 로그인을 처리합니다.\n\nOAuth2 제공자로부터 받은 authorization `code`와 `state`를 검증한 후, \nOAuth2 제공자의 AccessToken을 획득하여 사용자 프로필 정보를 가져와 로그인 또는 회원 생성을 진행합니다.\n\n로그인 과정에서, 사용자 유효성에 대한 판단을 진행합니다.\n\n- 정상 사용자: 커넥터즈 서비스의 `AccessToken`과 `RefreshToken`이 저장되며 `status`는 `ALLOWED`입니다.\n- 비정상 사용자: 이용 약관 동의 등 서비스 사용에 필수적인 내용이 처리되지 않은 경우, `TemporaryToken`과 `RefreshToken`을 발급합니다.\n\n⚠️ `status`가 아래와 같을 경우, 각 상태에 맞는 페이지로 이동시켜야합니다.\n\n- BLOCKED_NEW_MEMBER: 회원가입 페이지로 이동\n- BLOCKED_TERMS_REQUIRED: 약관 동의 페이지로 이동\n- BLOCKED_PROFILE_REQUIRED: 사용자 프로필 작성 페이지로 이동 (미구현)\n- BLOCKED_RESIGN_REQUESTED: 탈퇴 요청 철회 페이지로 이동 (미구현)\n\n존재하지 않는 회원의 경우, 바로 회원을 생성합니다.\n\n이 때, SNS 프로필 이미지가 존재하는 경우 해당 프로필 이미지로 설정합니다.\n프로필 이미지가 존재하지 않는 경우, null로 저장됩니다.\n\nPKCE 흐름에서 `state`는 CSRF 공격 방지와 세션 유지를 위해 사용됩니다.\n",
+        "operationId": "oAuth2LogIn",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OAuth2LogInRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Log out user and clear authentication",
+        "description": "## ✨ 주요 기능\n\n사용자 로그아웃을 처리하고 인증 정보를 정리합니다.\n\n현재 로그인된 사용자의 세션을 종료하고, 저장된 refresh token을 무효화합니다.\n\n또한 클라이언트의 인증 쿠키(access token, refresh token)를 삭제하여 \n완전한 로그아웃을 수행합니다.\n\n로그아웃 후에는 보호된 리소스에 접근하기 위해 다시 로그인이 필요합니다.\n",
+        "operationId": "logOut",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/terms/withdraw": {
+      "get": {
+        "tags": [
+          "Terms"
+        ],
+        "summary": "Withdraw from terms of service",
+        "description": "## ✨ 주요 기능\n\n사용자 약관을 철회합니다.\n\n임시 사용자 및 일반 사용자 접근이 가능합니다.\n",
+        "operationId": "withdrawTermsOfService",
+        "parameters": [
+          {
+            "name": "termsIdList",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/terms/info": {
+      "get": {
+        "tags": [
+          "Terms"
+        ],
+        "summary": "Get terms of service information",
+        "description": "## ✨ 주요 기능\n\n사용자 약관 정보를 조회합니다.\n\n현재 존재하는 약관 중, 가장 최신 버전이면서 시행 기간이 지난 약관들을 반환합니다.\n\n임시 사용자 및 일반 사용자 접근이 가능합니다.\n",
+        "operationId": "getTermsOfService",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TermsInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/terms/agree": {
+      "get": {
+        "tags": [
+          "Terms"
+        ],
+        "summary": "Agree terms of service",
+        "description": "## ✨ 주요 기능\n\n사용자 약관에 동의합니다.\n\n임시 사용자 및 일반 사용자 접근이 가능합니다.\n",
+        "operationId": "agreeTermsOfService",
+        "parameters": [
+          {
+            "name": "termsIdList",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "redirectPath": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ALLOWED",
+              "BLOCKED_NEW_MEMBER",
+              "BLOCKED_TERMS_REQUIRED",
+              "BLOCKED_PROFILE_REQUIRED",
+              "BLOCKED_RESIGN_REQUESTED"
+            ]
+          }
+        }
+      },
+      "OAuth2UrlRequest": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "description": "OAuth2 Provider",
+            "enum": [
+              "GOOGLE",
+              "KAKAO",
+              "FACEBOOK",
+              "APPLE"
+            ],
+            "example": "GOOGLE"
+          },
+          "codeVerifier": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 43,
+            "pattern": "^[A-Za-z0-9\\-._~]+$"
+          },
+          "redirectPath": {
+            "type": "string",
+            "description": "Relative path of client application",
+            "example": "/home",
+            "minLength": 1,
+            "pattern": "^/[a-zA-Z0-9._~!$&'()*+,;=:@/-]*$"
+          },
+          "redirectUri": {
+            "type": "string",
+            "description": "RedirectUri of client application to handle authentication",
+            "example": "http://localhost:3000/auth/callback/google",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "codeVerifier",
+          "provider",
+          "redirectPath",
+          "redirectUri"
+        ]
+      },
+      "OAuth2LoginUrl": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "GOOGLE",
+              "KAKAO",
+              "FACEBOOK",
+              "APPLE"
+            ]
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "OAuth2LogInRequest": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "description": "OAuth2 Provider",
+            "enum": [
+              "GOOGLE",
+              "KAKAO",
+              "FACEBOOK",
+              "APPLE"
+            ],
+            "example": "GOOGLE"
+          },
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]{43}$"
+          }
+        },
+        "required": [
+          "code",
+          "provider",
+          "state"
+        ]
+      },
+      "TermsInfo": {
+        "type": "object",
+        "properties": {
+          "termsId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "effectiveAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "AccessToken Authentication": {
+        "type": "apiKey",
+        "name": "access-token",
+        "in": "cookie"
+      },
+      "RefreshToken Authentication": {
+        "type": "apiKey",
+        "name": "refresh-token",
+        "in": "cookie"
+      }
+    }
+  }
+}
